@@ -58,6 +58,7 @@ describe('Diagram - Direct edit label', () => {
           instanceProjectId = res.projectId;
 
           new Explorer().createRepresentation('Root', `${domainName} Diagram Description`, 'diagram');
+          new Diagram().isReady('diagram');
         });
       });
 
@@ -72,7 +73,7 @@ describe('Diagram - Direct edit label', () => {
         details.getTextField('Name').type('Entity1{Enter}');
 
         const diagram = new Diagram();
-        diagram.fitToScreen();
+        diagram.isLayouted('diagram');
         diagram.getNodes('diagram', 'Entity1').click();
 
         diagram.getPalette().should('exist');
@@ -91,11 +92,12 @@ describe('Diagram - Direct edit label', () => {
         details.getTextField('Name').type('Entity2{Enter}');
 
         const diagram = new Diagram();
-        diagram.fitToScreen();
+        diagram.isLayouted('diagram');
         diagram.getNodes('diagram', 'Entity2').click();
-        diagram.getPalette().should('exist');
 
+        diagram.getPalette().should('exist');
         cy.getByTestId('Edit - Tool').should('exist');
+
         diagram.getNodes('diagram', 'Entity2').trigger('keydown', { altKey: true, keyCode: 113, which: 113 }); // key code for F2
         cy.getByTestId('name-edit').should('exist');
       });
@@ -109,12 +111,13 @@ describe('Diagram - Direct edit label', () => {
         details.getTextField('Name').type('Entity2{Enter}');
 
         const diagram = new Diagram();
-        diagram.fitToScreen();
+        diagram.isLayouted('diagram');
         diagram.getNodes('diagram', 'Entity2').click();
-        diagram.getPalette().should('exist');
 
+        diagram.getPalette().should('exist');
         cy.getByTestId('Edit - Tool').click();
         cy.getByTestId('name-edit').should('exist').type('test{esc}');
+
         diagram.getNodes('diagram', 'Entity2').should('exist');
         diagram.getNodes('diagram', 'test').should('not.exist');
       });

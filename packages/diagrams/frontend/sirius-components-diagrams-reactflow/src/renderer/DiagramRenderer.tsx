@@ -49,6 +49,7 @@ import { useLayoutOnBoundsChange } from './layout-events/useLayoutOnBoundsChange
 import { RawDiagram } from './layout/layout.types';
 import { useLayout } from './layout/useLayout';
 import { useSynchronizeLayoutData } from './layout/useSynchronizeLayoutData';
+import { useDiagramLifecycle } from './lifecycle/useDiagramLifecycle';
 import { NodeContext } from './node/NodeContext';
 import { NodeContextValue } from './node/NodeContext.types';
 import { DiagramNodeType } from './node/NodeTypes.types';
@@ -66,6 +67,7 @@ import 'reactflow/dist/style.css';
 const GRID_STEP: number = 10;
 
 export const DiagramRenderer = ({ diagramRefreshedEventPayload }: DiagramRendererProps) => {
+  const { diagramRefreshed, diagramLaidOut } = useDiagramLifecycle();
   const { diagramDescription } = useDiagramDescription();
   const { onDirectEdit } = useDiagramDirectEdit();
   const { onDelete } = useDiagramDelete();
@@ -104,8 +106,10 @@ export const DiagramRenderer = ({ diagramRefreshedEventPayload }: DiagramRendere
 
       setNodes(convertedDiagram.nodes);
       setEdges(convertedDiagram.edges);
+      diagramLaidOut();
       fitToScreen();
     } else if (cause === 'refresh') {
+      diagramRefreshed();
       const previousDiagram: RawDiagram = {
         nodes: nodes as Node<NodeData, DiagramNodeType>[],
         edges,

@@ -14,6 +14,7 @@
 import { useEffect, useState } from 'react';
 import { useReactFlow } from 'reactflow';
 import { EdgeData, NodeData } from '../DiagramRenderer.types';
+import { useDiagramLifecycle } from '../lifecycle/useDiagramLifecycle';
 import { UseInitialFitToScreenState, UseInitialFitToScreenValue } from './useInitialFitToScreen.types';
 
 export const useInitialFitToScreen = (): UseInitialFitToScreenValue => {
@@ -22,6 +23,8 @@ export const useInitialFitToScreen = (): UseInitialFitToScreenValue => {
     initialFitToScreenPerformed: false,
     shouldPerformFitToScreen: false,
   });
+
+  const { diagramFitView } = useDiagramLifecycle();
 
   const fitToScreen = () => {
     if (!state.initialFitToScreenPerformed) {
@@ -34,6 +37,8 @@ export const useInitialFitToScreen = (): UseInitialFitToScreenValue => {
     if (state.shouldPerformFitToScreen) {
       reactFlowInstance.fitView({ duration: 200 });
       setState((prevState) => ({ ...prevState, initialFitToScreenPerformed: true, shouldPerformFitToScreen: false }));
+
+      diagramFitView();
     }
   }, [state.shouldPerformFitToScreen]);
 

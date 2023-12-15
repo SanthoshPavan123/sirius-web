@@ -12,6 +12,18 @@
  *******************************************************************************/
 
 export class Diagram {
+  public isReady(diagramLabel: string): void {
+    this.getDiagram(diagramLabel)
+      .findByTestId('rf__wrapper')
+      .should('have.attr', 'data-diagram-lifecycle', 'diagram fit view');
+  }
+
+  public isLayouted(diagramLabel: string): void {
+    this.getDiagram(diagramLabel)
+      .findByTestId('rf__wrapper')
+      .should('have.attr', 'data-diagram-lifecycle', 'diagram laid out');
+  }
+
   public getDiagram(diagramLabel: string): Cypress.Chainable<JQuery<HTMLElement>> {
     return cy.get(`[data-representation-kind="diagram"][data-representation-label="${diagramLabel}"]`);
   }
