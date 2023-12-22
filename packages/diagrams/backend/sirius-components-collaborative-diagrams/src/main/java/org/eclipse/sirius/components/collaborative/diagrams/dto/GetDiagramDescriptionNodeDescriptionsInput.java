@@ -15,13 +15,12 @@ package org.eclipse.sirius.components.collaborative.diagrams.dto;
 import java.util.UUID;
 
 import org.eclipse.sirius.components.collaborative.diagrams.api.IDiagramInput;
-import org.eclipse.sirius.components.diagrams.description.NodeDescription;
 
 /**
- * Input for "get border node descriptions" query.
+ * The input for the diagram description node descriptions compatibility event handler.
  *
- * @author frouene
+ * @author pcdavid
  */
-public record GetNodeDescriptionBorderNodeDescriptionsInput(UUID id, String editingContextId, String representationId, NodeDescription nodeDescription) implements IDiagramInput {
+public record GetDiagramDescriptionNodeDescriptionsInput(UUID id, String editingContextId, String representationId) implements IDiagramInput {
 
 }

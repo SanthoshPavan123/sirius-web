@@ -12,16 +12,22 @@
  *******************************************************************************/
 package org.eclipse.sirius.components.collaborative.diagrams.dto;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
-import org.eclipse.sirius.components.collaborative.diagrams.api.IDiagramInput;
+import org.eclipse.sirius.components.core.api.IPayload;
 import org.eclipse.sirius.components.diagrams.description.NodeDescription;
 
 /**
- * Input for "get child node descriptions" query.
+ * The payload of the "Get Diagram Description Node Descriptions" query returned on success.
  *
- * @author frouene
+ * @author arichard
  */
-public record GetNodeDescriptionChildNodeDescriptionsInput(UUID id, String editingContextId, String representationId, NodeDescription nodeDescription) implements IDiagramInput {
+public record GetDiagramDescriptionNodeDescriptionsSuccessPayload(UUID id, List<NodeDescription> nodeDescriptions) implements IPayload {
+    public GetDiagramDescriptionNodeDescriptionsSuccessPayload {
+        Objects.requireNonNull(id);
+        Objects.requireNonNull(nodeDescriptions);
+    }
 
 }
