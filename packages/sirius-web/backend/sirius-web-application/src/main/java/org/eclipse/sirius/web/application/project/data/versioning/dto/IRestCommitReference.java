@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.sirius.web.application.project.data.versioning.dto;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
 
 import org.eclipse.sirius.web.application.dto.IRestRecord;
 
@@ -23,7 +23,7 @@ import org.eclipse.sirius.web.application.dto.IRestRecord;
  */
 public interface IRestCommitReference extends IRestRecord {
 
-    Instant created();
+    OffsetDateTime created();
 
     String name();
 }
