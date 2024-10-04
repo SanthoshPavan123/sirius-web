@@ -15,14 +15,14 @@ export interface ContextualPaletteStyleProps {
   toolCount: number;
 }
 
-export interface PaletteProps {
+export interface DraggablePaletteProps {
   x: number;
   y: number;
-  diagramElementId: string;
-  targetObjectId: string;
-  onDirectEditClick: () => void;
-  hideableDiagramElement?: boolean;
   onEscape?: () => void;
+  paletteEntries: PaletteEntry[];
+  onToolClick: (tool: Tool) => void;
+  lastToolInvoked: Tool | null;
+  quickAccessToolComponents: JSX.Element[];
 }
 
 export interface PaletteStyleProps {
@@ -30,32 +30,24 @@ export interface PaletteStyleProps {
   paletteHeight: string;
 }
 
-export interface GQLTool extends GQLPaletteEntry {
+export interface Tool extends PaletteEntry {
   label: string;
   iconURL: string[];
+  iconElement?: JSX.Element;
   __typename: 'SingleClickOnDiagramElementTool' | 'SingleClickOnTwoDiagramElementsTool';
 }
 
-export interface GQLSingleClickOnDiagramElementTool extends GQLTool {
-  appliesToDiagramRoot: boolean;
-  dialogDescriptionId: string;
-  __typename: 'SingleClickOnDiagramElementTool';
-}
-
-export interface GQLPalette {
-  id: string;
-  quickAccessTools: GQLTool[];
-  paletteEntries: GQLPaletteEntry[];
-}
-
-export interface GQLPaletteEntry {
+export interface PaletteEntry {
   id: string;
   __typename: string;
 }
-export interface GQLPaletteDivider extends GQLPaletteEntry {}
+export interface PaletteDivider extends PaletteEntry {
+  __typename: 'PaletteDivider';
+}
 
-export interface GQLToolSection extends GQLPaletteEntry {
+export interface ToolSection extends PaletteEntry {
   label: string;
   iconURL: string[];
-  tools: GQLTool[];
+  tools: Tool[];
+  __typename: 'ToolSection';
 }
